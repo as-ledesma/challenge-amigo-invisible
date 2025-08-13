@@ -7,24 +7,41 @@ function agregarAmigo(){ //determino el elemento de interés por su Id
     //creo la variable nombre para tomar el valor del input
     let nombre = inputAmigo.value.trim(); //agrego el trim para evitar espacios
     //si la variable nombre está vacia, que figure el alert
-    if(nombre===""){
-        alert ("Por favor, inserte un nombre");
-    } else { //de lo contrario, que se sume al array
+   if (nombre === "") {
+        alert("Por favor, ingresa un nombre.");
+        // si el nombre se repite, indicar alert
+    } else if (amigos.includes(nombre)) {
+        alert(`El nombre "${nombre}" ya está en la lista.`);
+        // de lo contrario, ingresar al array
+    } else {
         amigos.push(nombre);
-        mostrarAmigos(); //llamé a la función de mostrar amigos 
-    }// para que se limpie y seguir sumando nombres
-    inputAmigo.value ="";
+        mostrarAmigos();
+    }
+    inputAmigo.value = ""; // limpiar caja SIEMPRE
 }
 
-//función mostrar Amigos
-function mostrarAmigos(){
-    // obtener el elemento donde mostraremos la lista
-    const lista = document.getElementById ("listaAmigos");
-    // limpiar lista para no duplicar
-    lista.innerHTML ="";
-    // recorrer el array
-    for (let i = 0; i<amigos.length; i++) {
-        //agregar amigo
+
+//función mostrar amigos en la lista
+function mostrarAmigos() { //obtener el elemento donde mostraremos la lista
+    const lista = document.getElementById("listaAmigos");
+    //limpiar lista para no duplicar
+    lista.innerHTML = "";
+    //recorrer el array y renderiza lista
+    for (let i = 0; i < amigos.length; i++) {
         lista.innerHTML += `<li>${amigos[i]}</li>`;
     }
-} //AGREGAR QUE SI SE REPITE UN NOMBRE, NO LO TOME
+}
+
+//función sortear amigos
+function sortearAmigo(){
+    //comprobar que el array no esté vacio
+        if(amigos.length ===0){
+        alert ("No hay amigos en la lista para mostrar");
+       return;
+    } //utilizar el índice aleatorio math.random para acceder al nombre
+    const indiceAleatorio = Math.floor(Math.random()*amigos.length);
+    let amigoSorteado = amigos[indiceAleatorio];
+    //mostrar el resultado
+    let resultadoSorteo = document.getElementById ("resultado")
+    resultadoSorteo.innerHTML =`El amigo sorteado es ${amigoSorteado}`
+}
